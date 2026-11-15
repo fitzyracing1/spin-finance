@@ -6,7 +6,18 @@
 
 Invoice totals, late fees, and loan payments with exact Decimal math. Same input, same answer, no API, no cost, works offline.
 
-The calculator ships in a pull request. It will compute invoices, late fees, and loan amortizations in cents, with no floating-point money.
+All money is `Decimal`, rounded half-up to cents. There is no floating-point money math.
+
+```sh
+python finance.py invoice --item 'Widget,3,10.00' --item 'Fee,1,2.50' --tax 8%
+python finance.py invoice --csv items.csv --tax 0.08
+python finance.py late-fee --principal 1000 --annual-rate 0.18 --days 15
+python finance.py late-fee --principal 1000 --monthly-rate 0.015 --days 45
+python finance.py late-fee --principal 1000 --flat 25 --days 10
+python finance.py loan --principal 10000 --annual-rate 0.05 --term 36 --amortization
+```
+
+Late fees are simple interest (or a flat amount), not compound. Loan payments use the standard fixed installment formula; the last payment is adjusted so the balance lands on 0.00.
 
 ## Run it
 
